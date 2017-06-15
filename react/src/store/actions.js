@@ -5,6 +5,11 @@ const setUser = (user) => ({
   user,
 });
 
+const handleError = (res) => {
+  if (!res.ok) throw Error(res.statusText);
+  return res;
+};
+
 export const loginActionCreator = (email, password) => (dispatch) => {
   const headers = new Headers({
     'Content-type': 'application/json',
@@ -15,11 +20,6 @@ export const loginActionCreator = (email, password) => (dispatch) => {
     body: JSON.stringify({ email, password }),
   };
 
-  const handleError = (res) => {
-    if (!res.ok) throw Error(res.statusText);
-    return res;
-  };
-
   return fetch(`${BASE_URL}/login`, config)
     .then(handleError)
     .then(res => res.json())
@@ -27,11 +27,9 @@ export const loginActionCreator = (email, password) => (dispatch) => {
     .then(data => {
       const user = { ...data };
       localStorage.setItem('user', JSON.stringify(user));
-
       dispatch(setUser(user));
     })
 };
-
 
 export const fetchLocalUserActionCreator = () => (dispatch) => {
   const userStr = localStorage.getItem('user');
@@ -43,14 +41,37 @@ export const fetchLocalUserActionCreator = () => (dispatch) => {
 
 export const fetchFeed = () => (dispatch, getState) => {
   const { token } = getState().currentUser;
-  const myHeaders = new Headers({
+  const headers = new Headers({
     Authorization: `Bearer ${token}`
   });
   const config = {
     method: 'GET',
-    headers: myHeaders,
+    headers,
   };
 
   return fetch(`${BASE_URL}/feed`, config)
     .then(res => res.json());
 }
+
+export const postBlitz = (content) => (dispatch, getState) => {
+  const { token } = getState().currentUser;
+  const headers = new Headers({
+    'Authorization': `Bearer ${token}`,
+    'Content-type': 'application/json',
+  });
+  const config = {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ content }),
+  };
+
+  return fetch(`${BASE_URL}/blitzs`, config)
+    .then(handleError)
+    .then(res => res.json())
+    .catch(err => Promise.reject())
+    .then(data => {
+      console.log(data);
+
+      fetchFeed();
+    })
+} 

@@ -5,7 +5,7 @@ import { fetchFeed } from './../../store/actions';
 
 import Container from './../../components/Container';
 import ListBlitz from './../../components/ListBlitz';
-import NewBlitz from './../../components/NewBlitz';
+import NewBlitz from './../../containers/NewBlitz';
 
 class Feed extends Component {
 

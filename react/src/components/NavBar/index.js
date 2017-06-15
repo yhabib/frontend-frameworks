@@ -19,14 +19,12 @@ class NavBar extends Component {
         title="Blitz"
         style={ { position: 'fixed', } }
         iconElementRight={ username && avatar ?
-          <UserInfo username={ username } avatar={ avatar } />
-          : ''
+          <UserInfo username={ username } avatar={ avatar } /> : null
         }
       />
     )
   }
 }
-
 
 const mapStateToProps = (state) => ({
   username: state.currentUser.username,
