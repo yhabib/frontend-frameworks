@@ -1,24 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import AppBar from 'material-ui/AppBar';
+
+import { fetchLocalUserActionCreator } from './../../store/actions';
 
 import UserInfo from './../UserInfo';
 
-const NavBar = ({ username, avatar }) => (
-  <AppBar
-    title="Blitz"
-    style={ { position: 'fixed', } }
-    iconElementRight={ username && avatar ?
-      <UserInfo username={ username } avatar={ avatar } />
-      : ''
-    }
-  />
-)
+class NavBar extends Component {
+
+  componentWillMount = () => {
+    this.props.fetchLocalUser();
+  }
+
+  render () {
+    const { username, avatar } = this.props;
+    return (
+      <AppBar
+        title="Blitz"
+        style={ { position: 'fixed', } }
+        iconElementRight={ username && avatar ?
+          <UserInfo username={ username } avatar={ avatar } />
+          : ''
+        }
+      />
+    )
+  }
+}
+
 
 const mapStateToProps = (state) => ({
   username: state.currentUser.username,
   avatar: state.currentUser.avatar,
 })
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = (dispatch) => ({
+  fetchLocalUser: () => dispatch(fetchLocalUserActionCreator()),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

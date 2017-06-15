@@ -5,6 +5,7 @@ import { fetchFeed } from './../../store/actions';
 
 import Container from './../../components/Container';
 import ListBlitz from './../../components/ListBlitz';
+import NewBlitz from './../../components/NewBlitz';
 
 class Feed extends Component {
 
@@ -25,6 +26,7 @@ class Feed extends Component {
     return (
       <Container>
         <ListBlitz blitzs={ this.state.blitzs } />
+        <NewBlitz />
       </Container>
     );
   }

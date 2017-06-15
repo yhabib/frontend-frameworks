@@ -16,7 +16,6 @@ export const loginActionCreator = (email, password) => (dispatch) => {
   };
 
   const handleError = (res) => {
-    console.log(res);
     if (!res.ok) throw Error(res.statusText);
     return res;
   };
@@ -28,19 +27,17 @@ export const loginActionCreator = (email, password) => (dispatch) => {
     .then(data => {
       const user = { ...data };
       localStorage.setItem('user', JSON.stringify(user));
-      console.log(user);
 
       dispatch(setUser(user));
     })
 };
 
 
-export const fetchLocalUserActionCreator = (pusher, url) => (dispatch) => {
+export const fetchLocalUserActionCreator = () => (dispatch) => {
   const userStr = localStorage.getItem('user');
   if (userStr) {
     const user = JSON.parse(userStr);
     dispatch(setUser(user));
-    pusher(url);
   }
 }
 
