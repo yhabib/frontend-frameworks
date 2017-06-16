@@ -37,5 +37,5 @@ A small version of Twitter:
 * ES6
 
 ### AngularJS
-* ES6
-* classes
+* Typescript
+* Classes
