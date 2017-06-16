@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Avatar from 'material-ui/Avatar';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -10,7 +12,7 @@ import { white } from 'material-ui/styles/colors';
 
 import './index.css';
 
-export default ({ username, avatar }) => (
+export default ({ username, avatar, logOut }) => (
   <div className="UserInfo">
     <List>
       <ListItem
@@ -24,9 +26,9 @@ export default ({ username, avatar }) => (
             anchorOrigin={ { horizontal: 'right', vertical: 'top' } }
             targetOrigin={ { horizontal: 'right', vertical: 'top' } }
           >
-            <MenuItem primaryText="Follow Users" />
-            <MenuItem primaryText="Likes" />
-            <MenuItem primaryText="Sign out" />
+            <Link to="/user" style={ { textDecoration: 'none' } }><MenuItem primaryText="Follow Users" /></Link>
+            <Link to="/likes" style={ { textDecoration: 'none' } }><MenuItem primaryText="Likes" /></Link>
+            <Link to="/" style={ { textDecoration: 'none' } }><MenuItem primaryText="Log out" onClick={ logOut } /></Link>
           </IconMenu>
         }
       >

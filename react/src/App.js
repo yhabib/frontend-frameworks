@@ -18,14 +18,14 @@ const muiTheme = getMuiTheme({
 export default ({ store }) =>
   <MuiThemeProvider muiTheme={ muiTheme }>
     <Provider store={ store }>
-      <Layout>
-        <Router>
+      <Router>
+        <Layout>
           <Switch>
             {/*<Route exact path="/" component={Home} />*/ }
             <Route exact path="/" component={ Login } />
             <Route exact path="/feed" component={ Feed } />
           </Switch>
-        </Router>
-      </Layout>
+        </Layout>
+      </Router>
     </Provider>
   </MuiThemeProvider >

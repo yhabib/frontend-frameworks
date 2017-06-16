@@ -1,8 +1,12 @@
-import { SET_USER, BASE_URL, SET_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './constants';
+import { SET_USER, REMOVE_USER, BASE_URL, SET_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './constants';
 
 const setUser = (user) => ({
   type: SET_USER,
   user,
+});
+
+const removeUser = () => ({
+  type: REMOVE_USER,
 });
 
 const setBlitzs = (blitzs) => ({
@@ -106,4 +110,10 @@ export const likeBlitz = (id) => (dispatch, getState) => {
     .then(res => res.json())
     .catch(err => Promise.reject())
     .then(data => dispatch(updateBlitz(data)));
+};
+
+
+export const logOutUser = () => (dispatch) => {
+  localStorage.removeItem('user');
+  dispatch(removeUser());
 };

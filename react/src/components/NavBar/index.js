@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 
-import { fetchLocalUserActionCreator } from './../../store/actions';
+import { fetchLocalUserActionCreator, logOutUser } from './../../store/actions';
 
 import UserInfo from './../UserInfo';
 
@@ -10,6 +10,10 @@ class NavBar extends Component {
 
   componentWillMount = () => {
     this.props.fetchLocalUser();
+  }
+
+  logOut = () => {
+    this.props.logOut();
   }
 
   render () {
@@ -24,7 +28,7 @@ class NavBar extends Component {
         iconStyleRight={ { marginTop: 0 } }
         iconElementRight={
           username && avatar ?
-            <UserInfo username={ username } avatar={ avatar } /> : null
+            <UserInfo username={ username } avatar={ avatar } logOut={ this.logOut } /> : null
         }
       />
     )
@@ -38,6 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchLocalUser: () => dispatch(fetchLocalUserActionCreator()),
+  logOut: () => dispatch(logOutUser()),
 })
 
 
