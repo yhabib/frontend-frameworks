@@ -1,9 +1,9 @@
-import { SET_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './../constants';
+import { ADD_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './../constants';
 
 export default (state = [], action) => {
   let blitz;
   switch (action.type) {
-    case SET_BLITZS:
+    case ADD_BLITZS:
       return [...action.blitzs];
     case ADD_BLITZ:
       blitz = { ...action.blitz };

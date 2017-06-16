@@ -1,35 +1,26 @@
-import { SET_USER, REMOVE_USER, BASE_URL, SET_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './constants';
+import {
+  SET_USER,
+  REMOVE_USER,
+  BASE_URL,
+  ADD_BLITZS,
+  ADD_BLITZ,
+  UPDATE_BLITZ,
+  API,
+} from './constants';
 
-const setUser = (user) => ({
-  type: SET_USER,
-  user,
-});
-
-const removeUser = () => ({
-  type: REMOVE_USER,
-});
-
-const setBlitzs = (blitzs) => ({
-  type: SET_BLITZS,
-  blitzs,
-})
-
-const addBlitz = (blitz) => ({
-  type: ADD_BLITZ,
-  blitz,
-})
-
-const updateBlitz = (blitz) => ({
-  type: UPDATE_BLITZ,
-  blitz,
-})
 
 const handleError = (res) => {
   if (!res.ok) throw Error(res.statusText);
   return res;
 };
 
+const setUser = (user) => ({
+  type: SET_USER,
+  user,
+});
+
 export const loginActionCreator = (email, password) => (dispatch) => {
+
   const headers = new Headers({
     'Content-type': 'application/json',
   });
@@ -58,60 +49,50 @@ export const fetchLocalUserActionCreator = () => (dispatch) => {
   }
 }
 
-export const fetchFeed = () => (dispatch, getState) => {
-  const { token } = getState().currentUser;
-  const headers = new Headers({
-    Authorization: `Bearer ${token}`
-  });
-  const config = {
-    method: 'GET',
-    headers,
-  };
 
-  return fetch(`${BASE_URL}/feed`, config)
-    .then(res => res.json())
-    .then(data => dispatch(setBlitzs(data)));
-}
+export const addBlitzs = (blitzs) => ({
+  type: ADD_BLITZS,
+  blitzs,
+});
 
-export const postBlitz = (content) => (dispatch, getState) => {
-  const { token } = getState().currentUser;
-  const headers = new Headers({
-    'Authorization': `Bearer ${token}`,
-    'Content-type': 'application/json',
-  });
+export const fetchFeed = () => ({
+  type: API,
+  url: '/feed',
+  method: 'GET',
+  success: addBlitzs,
+});
 
-  const config = {
-    headers,
-    method: 'POST',
-    body: JSON.stringify({ content }),
-  };
 
-  return fetch(`${BASE_URL}/blitzs`, config)
-    .then(handleError)
-    .then(res => res.json())
-    .catch(err => Promise.reject())
-    .then(data => dispatch(addBlitz(data)));
-}
+const addBlitz = (blitz) => ({
+  type: ADD_BLITZ,
+  blitz,
+})
 
-export const likeBlitz = (id) => (dispatch, getState) => {
-  const { token } = getState().currentUser;
-  const headers = new Headers({
-    'Authorization': `Bearer ${token}`,
-    'Content-type': 'application/json',
-  });
+export const postBlitz = (content) => ({
+  url: '/blitzs',
+  body: { content },
+  type: API,
+  method: 'POST',
+  success: addBlitz
+})
 
-  const config = {
-    headers,
-    method: 'POST',
-  };
 
-  return fetch(`${BASE_URL}/blitzs/${id}/like`, config)
-    .then(handleError)
-    .then(res => res.json())
-    .catch(err => Promise.reject())
-    .then(data => dispatch(updateBlitz(data)));
-};
+const updateBlitz = (blitz) => ({
+  type: UPDATE_BLITZ,
+  blitz,
+})
 
+export const likeBlitz = (id) => ({
+  type: API,
+  url: `/blitzs/${id}/like`,
+  method: 'POST',
+  success: updateBlitz
+});
+
+
+const removeUser = () => ({
+  type: REMOVE_USER,
+});
 
 export const logOutUser = () => (dispatch) => {
   localStorage.removeItem('user');

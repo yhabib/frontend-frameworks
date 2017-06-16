@@ -34,8 +34,9 @@ class NewBlitz extends Component {
 
   handleSumbit = () => {
     const { input } = this.state;
-    this.props.postBlitz(input)
-      .then(this.handleClose);
+    this.props.postBlitz(input);
+    // .then(this.handleClose);
+    this.handleClose();
   }
 
   handleInput = (e) => {
