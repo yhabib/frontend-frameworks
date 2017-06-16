@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 
-import Blitz from './../Blitz';
+import Blitz from './../../containers/Blitz';
 
 const paperStyle = {
   width: '100%',
