@@ -7,7 +7,7 @@ import Blitz from './../../containers/Blitz';
 const paperStyle = {
   width: '100%',
   textAlign: 'center',
-  marginTop: 60,
+  marginTop: 40,
   padding: '5px 0',
 };
 
