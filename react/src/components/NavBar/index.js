@@ -17,9 +17,14 @@ class NavBar extends Component {
     return (
       <AppBar
         title="Blitz"
-        style={ { position: 'fixed', } }
-        iconElementRight={ username && avatar ?
-          <UserInfo username={ username } avatar={ avatar } /> : null
+        showMenuIconButton={ false }
+        style={ {
+          position: 'fixed', fontFamily: '"Roboto Mono", monospace',
+        } }
+        iconStyleRight={ { marginTop: 0 } }
+        iconElementRight={
+          username && avatar ?
+            <UserInfo username={ username } avatar={ avatar } /> : null
         }
       />
     )

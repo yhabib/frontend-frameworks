@@ -10,6 +10,7 @@ const Blitz = ({ blitz, like }) => (
   <ListItem
     primaryText={ blitz.content }
     leftAvatar={ <Avatar src={ blitz._user.avatar } /> }
+    style={ { fontFamily: '"Gloria Hallelujah", cursive', } }
     rightIcon={ blitz.isLiked ?
       <FontIcon className="material-icons" onClick={ like }>favorite</FontIcon> :
       <FontIcon className="material-icons" onClick={ like }>favorite_border</FontIcon> }
