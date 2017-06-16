@@ -12,8 +12,10 @@ import './index.css';
 injectTapEventPlugin();
 
 ReactDOM.render(
-  <App store={ store }/>, 
+  <App store={ store } />,
   document.getElementById('root')
 );
 
 registerServiceWorker();
+
+// despachar
