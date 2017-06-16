@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 
 import { fetchLocalUserActionCreator, logOutUser } from './../../store/actions';
@@ -12,6 +13,10 @@ class NavBar extends Component {
     this.props.fetchLocalUser();
   }
 
+  toFeed = () => {
+    this.props.history.push('/feed');
+  }
+
   logOut = () => {
     this.props.logOut();
   }
@@ -21,6 +26,8 @@ class NavBar extends Component {
     return (
       <AppBar
         title="Blitz"
+        onTitleTouchTap={ this.toFeed }
+        titleStyle={ { cursor: 'pointer', } }
         showMenuIconButton={ false }
         style={ {
           position: 'fixed', fontFamily: '"Roboto Mono", monospace',
@@ -46,4 +53,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar));

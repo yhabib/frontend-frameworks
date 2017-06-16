@@ -26,7 +26,7 @@ export default ({ username, avatar, logOut }) => (
             anchorOrigin={ { horizontal: 'right', vertical: 'top' } }
             targetOrigin={ { horizontal: 'right', vertical: 'top' } }
           >
-            <Link to="/user" style={ { textDecoration: 'none' } }><MenuItem primaryText="Follow Users" /></Link>
+            <Link to="/users" style={ { textDecoration: 'none' } }><MenuItem primaryText="Follow Users" /></Link>
             <Link to="/likes" style={ { textDecoration: 'none' } }><MenuItem primaryText="Likes" /></Link>
             <Link to="/" style={ { textDecoration: 'none' } }><MenuItem primaryText="Log out" onClick={ logOut } /></Link>
           </IconMenu>

@@ -8,6 +8,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Layout from './components/Layout';
 import Login from './routes/Login';
 import Feed from './routes/Feed';
+import Users from './routes/Users';
+import User from './routes/User';
+import Likes from './routes/Likes';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -21,8 +24,10 @@ export default ({ store }) =>
       <Router>
         <Layout>
           <Switch>
-            {/*<Route exact path="/" component={Home} />*/ }
             <Route exact path="/" component={ Login } />
+            <Route exact path="/likes" component={ Likes } />
+            <Route exact path="/users" component={ Users } />
+            <Route exact path="/users/:id" component={ User } />
             <Route exact path="/feed" component={ Feed } />
           </Switch>
         </Layout>
