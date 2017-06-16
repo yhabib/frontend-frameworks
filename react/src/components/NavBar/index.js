@@ -3,15 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 
-import { fetchLocalUserActionCreator, logOutUser } from './../../store/actions';
+import { logOutUser } from './../../store/actions';
 
 import UserInfo from './../UserInfo';
 
 class NavBar extends Component {
-
-  componentWillMount = () => {
-    this.props.fetchLocalUser();
-  }
 
   toFeed = () => {
     this.props.history.push('/feed');
@@ -48,7 +44,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchLocalUser: () => dispatch(fetchLocalUserActionCreator()),
   logOut: () => dispatch(logOutUser()),
 })
 
