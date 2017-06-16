@@ -9,32 +9,28 @@ import NewBlitz from './../../containers/NewBlitz';
 
 class Feed extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      blitzs: []
-    }
-  }
-
   componentDidMount = () => {
-    this.props.fetchFeed()
-      .then(data => this.setState({ blitzs: [...data] }));
+    this.props.fetchFeed();
   }
+
 
   render () {
+    const { blitzs } = this.props;
     return (
       <Container>
-        <ListBlitz blitzs={ this.state.blitzs } />
+        <ListBlitz blitzs={ blitzs } />
         <NewBlitz />
       </Container>
     );
   }
-
 }
+
+const mapStateToProps = (state) => ({
+  blitzs: state.blitzs.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)),
+})
 
 const mapDispatchToProps = (dispatch) => ({
   fetchFeed: () => dispatch(fetchFeed()),
 });
 
-export default connect(undefined, mapDispatchToProps)(Feed);
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

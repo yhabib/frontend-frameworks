@@ -1,12 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ListItem } from 'material-ui/List';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import FontIcon from 'material-ui/FontIcon';
 import Avatar from 'material-ui/Avatar';
 
-export default ({ blitz }) => (
+import { likeBlitz } from './../../store/actions';
+
+const Blitz = ({ blitz, like }) => (
   <ListItem
     primaryText={ blitz.content }
     leftAvatar={ <Avatar src={ blitz._user.avatar } /> }
-    rightIcon={ <CommunicationChatBubble /> }
+    rightIcon={ blitz.isLiked ?
+      <FontIcon className="material-icons" onClick={ like }>favorite</FontIcon> :
+      <FontIcon className="material-icons" onClick={ like }>favorite_border</FontIcon> }
   />
 )
+
+const mapDispatchToProps = (dispatch, props) => ({
+  like: () => dispatch(likeBlitz(props.blitz._id))
+})
+export default connect(undefined, mapDispatchToProps)(Blitz);

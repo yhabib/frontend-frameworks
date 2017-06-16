@@ -1,9 +1,24 @@
-import { SET_USER, BASE_URL } from './constants';
+import { SET_USER, BASE_URL, SET_BLITZS, ADD_BLITZ, UPDATE_BLITZ } from './constants';
 
 const setUser = (user) => ({
   type: SET_USER,
   user,
 });
+
+const setBlitzs = (blitzs) => ({
+  type: SET_BLITZS,
+  blitzs,
+})
+
+const addBlitz = (blitz) => ({
+  type: ADD_BLITZ,
+  blitz,
+})
+
+const updateBlitz = (blitz) => ({
+  type: UPDATE_BLITZ,
+  blitz,
+})
 
 const handleError = (res) => {
   if (!res.ok) throw Error(res.statusText);
@@ -50,7 +65,8 @@ export const fetchFeed = () => (dispatch, getState) => {
   };
 
   return fetch(`${BASE_URL}/feed`, config)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(data => dispatch(setBlitzs(data)));
 }
 
 export const postBlitz = (content) => (dispatch, getState) => {
@@ -59,6 +75,7 @@ export const postBlitz = (content) => (dispatch, getState) => {
     'Authorization': `Bearer ${token}`,
     'Content-type': 'application/json',
   });
+
   const config = {
     headers,
     method: 'POST',
@@ -69,9 +86,24 @@ export const postBlitz = (content) => (dispatch, getState) => {
     .then(handleError)
     .then(res => res.json())
     .catch(err => Promise.reject())
-    .then(data => {
-      console.log(data);
+    .then(data => dispatch(addBlitz(data)));
+}
 
-      fetchFeed();
-    })
-} 
+export const likeBlitz = (id) => (dispatch, getState) => {
+  const { token } = getState().currentUser;
+  const headers = new Headers({
+    'Authorization': `Bearer ${token}`,
+    'Content-type': 'application/json',
+  });
+
+  const config = {
+    headers,
+    method: 'POST',
+  };
+
+  return fetch(`${BASE_URL}/blitzs/${id}/like`, config)
+    .then(handleError)
+    .then(res => res.json())
+    .catch(err => Promise.reject())
+    .then(data => dispatch(updateBlitz(data)));
+};
