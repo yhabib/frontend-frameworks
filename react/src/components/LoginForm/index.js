@@ -9,6 +9,7 @@ import './index.css';
 const paperStyle = {
   width: '100%',
   height: 400,
+  marginTop: 40,
   textAlign: 'center',
   padding: '50px 0',
 };
@@ -19,7 +20,7 @@ const buttonStyle = {
 
 export default ({ email, password, updateEmail, updatePassword, handleLogin }) => (
   <Paper style={ paperStyle } zDepth={ 5 } >
-    <h2>Log In</h2>
+    <h2 className="LoginForm-Title">Log In</h2>
     <form onSubmit={ handleLogin } className="LoginForm">
       <TextField
         floatingLabelText="Email"
