@@ -7,6 +7,20 @@
 </head>
 
 <body>
+  <div ng-app="App">
+    <div ng-controller="SearchFieldCtrl as vm">
+      <form ng-submit="vm.handlerSubmit()">
+        <input type="text" ng-model="vm.termToSearch">
+      </form>
+      <ul ng-if="vm.data.length > 0">
+        <li ng-repeat="entry in vm.data track by $index">
+          <p>{{entry}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
   <script src="dist/app.bundle.js"></script>
 </body>
 
