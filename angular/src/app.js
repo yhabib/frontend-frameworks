@@ -1,8 +1,8 @@
 import { SearchFieldCtrl, WikiService } from './module1';
-import angular from 'angular';
+import * as angular from "angular";
 
 const app = angular.module('App', []);
-  
+
 // app
 //   .config(function($sceDelegateProvider) {  
 //     $sceDelegateProvider.resourceUrlWhitelist([

@@ -6,7 +6,12 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "removeComments": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": [
+      "es2015",
+      "es2015.iterable",
+      "dom"
+    ]
   },
   "exclude": [
     "node_modules",
